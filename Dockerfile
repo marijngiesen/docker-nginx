@@ -13,6 +13,7 @@ RUN yum -y install --setopt=tsflags=nodocs http://dl.fedoraproject.org/pub/epel/
 
 # Configure software
 RUN pip install pip --upgrade && pip install supervisor; \
+    rm -rf /tmp/*; \
     echo "NETWORKING=yes" > /etc/sysconfig/network; \
     mkdir -p /etc/service-config
 
@@ -24,6 +25,6 @@ RUN ln -sf /etc/service-config/supervisor/supervisord.conf /etc/supervisord.conf
     ln -sf /etc/service-config/nginx/fastcgi_params_php /etc/nginx/fastcgi_params_php; \
     chmod 700 /usr/bin/start_container
 
-EXPOSE 80 81
+EXPOSE 80
 
 CMD ["/usr/bin/start_container", "web"]
